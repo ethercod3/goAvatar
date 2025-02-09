@@ -8,14 +8,11 @@ import (
 type ColorChannel uint8
 
 type Color struct {
-	R ColorChannel
-	G ColorChannel
-	B ColorChannel
+	R, G, B ColorChannel
 }
 
 type ColorScheme struct {
-	First  Color
-	Second Color
+	First, Second Color
 }
 
 func generateRandomColorChannel() ColorChannel {
