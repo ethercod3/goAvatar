@@ -5,41 +5,23 @@ import (
 )
 
 func GenerateLeftSideIndexes() []int {
-
 	var indexes []int
-
 	for row := range 5 {
-		row += 1
 		side := rand.Intn(2)
-		index := (row * 2) - (1 + side)
-		if index < 0 {
-			index = 0
-		}
+		index := ((row + 1) * 2) - (1 + side)
 		indexes = append(indexes, index)
 	}
-
 	return indexes
-
 }
 
 func GenerateMiddleIndexes() []int {
-
 	var indexes []int
-
 	for row := range 5 {
-		row += 1
-		side := rand.Intn(2)
-		index := row - (1 + side)
-		if index < 0 {
-			index = 0
-		}
-		if side > 0 {
-			indexes = append(indexes, index)
+		if include := rand.Intn(2) == 1; include {
+			indexes = append(indexes, row)
 		}
 	}
-
 	return indexes
-
 }
 
 func GenerateRightSideIndexes(leftSide []int) []int {
