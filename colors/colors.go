@@ -34,13 +34,11 @@ func getLuminance(c Color) float32 {
 }
 
 func darken(channel ColorChannel) ColorChannel {
-	newChannel := channel - ColorChannel(float32(channel)*0.5)
-	return newChannel
+	return channel - ColorChannel(float32(channel)*0.5)
 }
 
 func lighten(channel ColorChannel) ColorChannel {
-	newChannel := channel + ColorChannel(float32(channel)*0.5)
-	return newChannel
+	return channel + ColorChannel(float32(channel)*0.5)
 }
 
 func filter(c Color, filter string) Color {
