@@ -44,7 +44,6 @@ func lighten(channel ColorChannel) ColorChannel {
 }
 
 func filter(c Color, filter string) Color {
-
 	switch filter {
 	case "darken":
 		return Color{R: darken(c.R), G: darken(c.G), B: darken(c.B)}
@@ -53,7 +52,6 @@ func filter(c Color, filter string) Color {
 	default:
 		panic(fmt.Sprintf("Unknown filter: %v", filter))
 	}
-
 }
 
 func generateSecondColor(c Color) Color {
