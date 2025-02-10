@@ -20,9 +20,11 @@ func generateLeftSideIndexes(dimensions int) []int {
 
 func generateMiddleIndexes(dimensions int) []int {
 	var indexes []int
-	for row := range dimensions {
+	for range dimensions {
 		if include := rand.Intn(2) == 1; include {
-			indexes = append(indexes, row)
+			indexes = append(indexes, 1)
+		} else {
+			indexes = append(indexes, -1)
 		}
 	}
 	return indexes
