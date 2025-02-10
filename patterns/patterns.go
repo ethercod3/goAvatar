@@ -37,7 +37,7 @@ func generateRightSideIndexes(leftSide []int, dimensions int) []int {
 	return indexes
 }
 
-func (p Pattern) Generate(dimensions int) Pattern {
+func GeneratePattern(dimensions int) Pattern {
 	left := generateLeftSideIndexes(dimensions)
 	middle := generateMiddleIndexes(dimensions)
 	right := generateRightSideIndexes(left, dimensions)
