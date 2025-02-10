@@ -2,6 +2,7 @@ package colors
 
 import (
 	"fmt"
+	"image/color"
 	"math/rand"
 )
 
@@ -62,4 +63,8 @@ func GenerateColorScheme() ColorScheme {
 	firstColor := generateRandomColor()
 	secondColor := generateSecondColor(firstColor)
 	return ColorScheme{firstColor, secondColor}
+}
+
+func ColorToRGBA(c Color) color.RGBA {
+	return color.RGBA{uint8(c.R), uint8(c.G), uint8(c.B), 255}
 }
