@@ -32,11 +32,15 @@ func getLuminance(c Color) float32 {
 }
 
 func darken(channel ColorChannel) ColorChannel {
-	return channel - ColorChannel(float32(channel)*0.5)
+	return ColorChannel(float32(channel) * 0.5)
 }
 
 func lighten(channel ColorChannel) ColorChannel {
-	return channel + ColorChannel(float32(channel)*0.5)
+	c := ColorChannel(float32(channel) * 1.5)
+	if c < channel {
+		return ColorChannel(255)
+	}
+	return c
 }
 
 func filter(c Color, filter string) Color {
@@ -62,6 +66,7 @@ func generateSecondColor(c Color) Color {
 func GenerateColorScheme() ColorScheme {
 	firstColor := generateRandomColor()
 	secondColor := generateSecondColor(firstColor)
+	fmt.Println(firstColor, secondColor)
 	return ColorScheme{firstColor, secondColor}
 }
 
