@@ -1,13 +1,13 @@
 package main
 
 import (
-	"fmt"
+	"randomAvatarApi/colors"
+	"randomAvatarApi/images"
 	"randomAvatarApi/patterns"
 )
 
 func main() {
-	left := patterns.GenerateLeftSideIndexes()
-	fmt.Println(left)
-	fmt.Println(patterns.GenerateMiddleIndexes())
-	fmt.Println(patterns.GenerateRightSideIndexes(left))
+	dimensions := 5
+	pattern := patterns.GeneratePattern(dimensions)
+	images.Draw(pattern, colors.GenerateColorScheme(), 1000, dimensions)
 }
