@@ -4,19 +4,19 @@ import (
 	"math/rand"
 )
 
-func GenerateLeftSideIndexes() []int {
+func GenerateLeftSideIndexes(dimensions int) []int {
 	var indexes []int
-	for row := range 5 {
-		side := rand.Intn(2)
-		index := ((row + 1) * 2) - (1 + side)
-		indexes = append(indexes, index)
+	cropped := dimensions / 2
+	for range dimensions {
+		side := rand.Intn(cropped)
+		indexes = append(indexes, side)
 	}
 	return indexes
 }
 
-func GenerateMiddleIndexes() []int {
+func GenerateMiddleIndexes(dimensions int) []int {
 	var indexes []int
-	for row := range 5 {
+	for row := range dimensions {
 		if include := rand.Intn(2) == 1; include {
 			indexes = append(indexes, row)
 		}
@@ -24,14 +24,11 @@ func GenerateMiddleIndexes() []int {
 	return indexes
 }
 
-func GenerateRightSideIndexes(leftSide []int) []int {
+func GenerateRightSideIndexes(leftSide []int, dimensions int) []int {
 	var indexes []int
+	cropped := dimensions / 2
 	for _, cellIndex := range leftSide {
-		if cellIndex%2 == 0 {
-			indexes = append(indexes, cellIndex+1)
-		} else {
-			indexes = append(indexes, cellIndex-1)
-		}
+		indexes = append(indexes, cropped-cellIndex-1)
 	}
 	return indexes
 }
