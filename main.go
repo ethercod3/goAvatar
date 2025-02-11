@@ -1,9 +1,9 @@
-package randomavatarapi
+package goavatar
 
 import (
-	"randomAvatarApi/colors"
-	"randomAvatarApi/images"
-	"randomAvatarApi/patterns"
+	"go-avatar/colors"
+	"go-avatar/images"
+	"go-avatar/patterns"
 )
 
 type AvatarOptions struct {

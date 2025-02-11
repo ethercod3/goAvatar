@@ -1,13 +1,13 @@
 package images
 
 import (
+	"go-avatar/colors"
+	"go-avatar/patterns"
 	"image"
 	"image/color"
 	"image/draw"
 	"image/png"
 	"os"
-	"randomAvatarApi/colors"
-	"randomAvatarApi/patterns"
 )
 
 type boxOptions struct {
