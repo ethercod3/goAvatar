@@ -66,7 +66,6 @@ func generateSecondColor(c Color) Color {
 func GenerateColorScheme() ColorScheme {
 	firstColor := generateRandomColor()
 	secondColor := generateSecondColor(firstColor)
-	fmt.Println(firstColor, secondColor)
 	return ColorScheme{firstColor, secondColor}
 }
 
