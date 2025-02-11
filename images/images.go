@@ -1,7 +1,6 @@
 package images
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
@@ -27,16 +26,14 @@ func drawBoxes(b boxOptions) {
 		y0 := yOffset
 		y1 := yOffset + b.boxSize
 		rect := image.Rect(x0, y0, x1, y1)
-
 		if cellIndex >= 0 {
 			draw.Draw(b.img, rect, &image.Uniform{b.foreground}, image.Point{}, draw.Src)
 		}
-
 		yOffset += b.boxSize
 	}
 }
 
-func Draw(p patterns.Pattern, scheme colors.ColorScheme, imageSizePx int, dimensions int) {
+func Draw(p patterns.Pattern, scheme colors.ColorScheme, imageSizePx int, dimensions int, imagePath string) error {
 	img := image.NewRGBA(image.Rect(0, 0, imageSizePx, imageSizePx))
 	background := colors.ColorToRGBA(scheme.First)
 	draw.Draw(img, img.Bounds(), &image.Uniform{background}, image.Point{}, draw.Src)
@@ -52,28 +49,28 @@ func Draw(p patterns.Pattern, scheme colors.ColorScheme, imageSizePx int, dimens
 		foreground:  foreground,
 	}
 
-	fmt.Println(p)
+	drawBoxes(options)
+	options.baseXOffset += boxSize * (((dimensions - 1) / 2) - 1)
 
-	drawBoxes(options)
-	options.baseXOffset += boxSize * ((dimensions / 2) - 1)
-	options.grid = p.Middle
-	drawBoxes(options)
-	// i still dont know why it works tbh
-	options.baseXOffset += boxSize * (dimensions / 2)
+	if dimensions%2 != 0 {
+		options.grid = p.Middle
+		drawBoxes(options)
+	}
+
+	options.baseXOffset += boxSize * 2
 	options.grid = p.Right
 	drawBoxes(options)
 
-	file, err := os.Create("top_left.png")
+	file, err := os.Create(imagePath)
 	if err != nil {
-		panic(err)
+		return err
 	}
 	defer file.Close()
 
 	err = png.Encode(file, img)
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	println("Изображение сохранено: top_left.png")
-
+	return nil
 }
