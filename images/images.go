@@ -1,13 +1,14 @@
 package images
 
 import (
-	"goAvatar/colors"
-	"goAvatar/patterns"
 	"image"
 	"image/color"
 	"image/draw"
 	"image/png"
 	"os"
+
+	"github.com/ethercod3/goAvatar/colors"
+	"github.com/ethercod3/goAvatar/patterns"
 )
 
 type boxOptions struct {

@@ -1,9 +1,9 @@
 package goAvatar
 
 import (
-	"goAvatar/colors"
-	"goAvatar/images"
-	"goAvatar/patterns"
+	"github.com/ethercod3/goAvatar/colors"
+	"github.com/ethercod3/goAvatar/images"
+	"github.com/ethercod3/goAvatar/patterns"
 )
 
 type AvatarOptions struct {
