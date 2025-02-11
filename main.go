@@ -7,13 +7,13 @@ import (
 )
 
 type AvatarOptions struct {
-	filepath               string
-	dimensions, fileSizePx int
+	Filepath               string
+	Dimensions, FileSizePx int
 }
 
 func GenerateAvatar(options AvatarOptions) error {
 	scheme := colors.GenerateColorScheme()
-	pattern := patterns.GeneratePattern(options.dimensions)
-	err := images.Draw(pattern, scheme, options.fileSizePx, options.dimensions, options.filepath)
+	pattern := patterns.GeneratePattern(options.Dimensions)
+	err := images.Draw(pattern, scheme, options.FileSizePx, options.Dimensions, options.Filepath)
 	return err
 }
