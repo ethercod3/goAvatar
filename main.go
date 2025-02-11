@@ -1,9 +1,9 @@
-package goavatar
+package goAvatar
 
 import (
-	"go-avatar/colors"
-	"go-avatar/images"
-	"go-avatar/patterns"
+	"goAvatar/colors"
+	"goAvatar/images"
+	"goAvatar/patterns"
 )
 
 type AvatarOptions struct {

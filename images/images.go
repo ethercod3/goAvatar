@@ -1,8 +1,8 @@
 package images
 
 import (
-	"go-avatar/colors"
-	"go-avatar/patterns"
+	"goAvatar/colors"
+	"goAvatar/patterns"
 	"image"
 	"image/color"
 	"image/draw"
