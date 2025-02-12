@@ -4,8 +4,6 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
-	"image/png"
-	"os"
 
 	"github.com/ethercod3/goAvatar/colors"
 	"github.com/ethercod3/goAvatar/patterns"
@@ -34,7 +32,7 @@ func drawBoxes(b boxOptions) {
 	}
 }
 
-func Draw(p patterns.Pattern, scheme colors.ColorScheme, imageSizePx int, dimensions int, imagePath string) error {
+func Draw(p patterns.Pattern, scheme colors.ColorScheme, imageSizePx int, dimensions int) *image.RGBA {
 	img := image.NewRGBA(image.Rect(0, 0, imageSizePx, imageSizePx))
 	background := colors.ColorToRGBA(scheme.First)
 	draw.Draw(img, img.Bounds(), &image.Uniform{background}, image.Point{}, draw.Src)
@@ -62,16 +60,5 @@ func Draw(p patterns.Pattern, scheme colors.ColorScheme, imageSizePx int, dimens
 	options.grid = p.Right
 	drawBoxes(options)
 
-	file, err := os.Create(imagePath)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	err = png.Encode(file, img)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return img
 }
