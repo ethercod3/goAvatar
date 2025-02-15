@@ -6,6 +6,11 @@ import (
 	"math/rand"
 )
 
+const (
+	DARKEN = iota
+	LIGHTEN
+)
+
 type ColorChannel uint8
 
 type Color struct {
@@ -43,11 +48,11 @@ func lighten(channel ColorChannel) ColorChannel {
 	return c
 }
 
-func filter(c Color, filter string) Color {
+func filter(c Color, filter int) Color {
 	switch filter {
-	case "darken":
+	case DARKEN:
 		return Color{R: darken(c.R), G: darken(c.G), B: darken(c.B)}
-	case "lighten":
+	case LIGHTEN:
 		return Color{R: lighten(c.R), G: lighten(c.G), B: lighten(c.B)}
 	default:
 		panic(fmt.Sprintf("Unknown filter: %v", filter))
@@ -57,9 +62,9 @@ func filter(c Color, filter string) Color {
 func generateSecondColor(c Color) Color {
 	luminance := getLuminance(c)
 	if luminance <= 128 {
-		return filter(c, "lighten")
+		return filter(c, LIGHTEN)
 	} else {
-		return filter(c, "darken")
+		return filter(c, DARKEN)
 	}
 }
 
