@@ -1,20 +1,33 @@
-package goAvatar
+package main
 
 import (
-	"image"
+	"image/png"
+	"log"
+	"os"
 
-	"github.com/ethercod3/goAvatar/colors"
-	"github.com/ethercod3/goAvatar/images"
-	"github.com/ethercod3/goAvatar/patterns"
+	"github.com/ethercod3/goAvatar/argparser"
+	"github.com/ethercod3/goAvatar/avatar"
 )
 
-type AvatarOptions struct {
-	Dimensions, FileSizePx int
-}
+func main() {
+	dimensions, size, output := argparser.Parse()
 
-func GenerateAvatar(options AvatarOptions) *image.RGBA {
-	scheme := colors.GenerateColorScheme()
-	pattern := patterns.GeneratePattern(options.Dimensions)
-	img := images.Draw(pattern, scheme, options.FileSizePx, options.Dimensions)
-	return img
+	if dimensions == 0 || size == 0 {
+		log.Println("Dimensions and size must be specified")
+		return
+	}
+
+	img := avatar.Generate(avatar.Options{
+		Dimensions: dimensions,
+		FileSizePx: size,
+	})
+
+	file, err := os.Create(output)
+	if err != nil {
+		panic(err)
+	}
+
+	defer file.Close()
+
+	png.Encode(file, img)
 }

@@ -1,19 +1,19 @@
-package goAvatar_test
+package main
 
 import (
 	"image/png"
 	"os"
 	"testing"
 
-	"github.com/ethercod3/goAvatar"
+	"github.com/ethercod3/goAvatar/avatar"
 )
 
 func TestMain(t *testing.T) {
-	options := goAvatar.AvatarOptions{
+	options := avatar.Options{
 		Dimensions: 5,
 		FileSizePx: 500,
 	}
-	img := goAvatar.GenerateAvatar(options)
+	img := avatar.Generate(options)
 	file, err := os.Create("./avatar.png")
 	if err != nil {
 		t.Fatal(err)
