@@ -14,7 +14,14 @@ Go package for quick generation of random pixelized avatars
 ## From CLI
 
 ```bash
-./goAvatar -s 500 -d 5
+go install github.com/ethercod3/goAvatar/cmd/goavatar@latest
+goavatar -s 500 -d 5
+```
+
+For local development:
+
+```bash
+go run ./cmd/goavatar -s 500 -d 5
 ```
 
 ### CLI Options
@@ -66,4 +73,5 @@ func main() {
 ```bash
 go test ./...
 go build ./...
+nu scripts/build.nu
 ```
