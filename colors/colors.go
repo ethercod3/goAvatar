@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"image/color"
 	"math/rand"
+	"time"
 )
 
 const (
@@ -11,24 +12,27 @@ const (
 	LIGHTEN
 )
 
+// ColorChannel is one RGB channel.
 type ColorChannel uint8
 
+// Color is an RGB color.
 type Color struct {
 	R, G, B ColorChannel
 }
 
+// ColorScheme contains the background and foreground colors.
 type ColorScheme struct {
 	First, Second Color
 }
 
-func generateRandomColorChannel() ColorChannel {
-	return ColorChannel(rand.Intn(256))
+func generateRandomColorChannel(rng *rand.Rand) ColorChannel {
+	return ColorChannel(rng.Intn(256))
 }
 
-func generateRandomColor() Color {
-	r := generateRandomColorChannel()
-	g := generateRandomColorChannel()
-	b := generateRandomColorChannel()
+func generateRandomColor(rng *rand.Rand) Color {
+	r := generateRandomColorChannel(rng)
+	g := generateRandomColorChannel(rng)
+	b := generateRandomColorChannel(rng)
 	return Color{r, g, b}
 }
 
@@ -68,12 +72,20 @@ func generateSecondColor(c Color) Color {
 	}
 }
 
+// GenerateColorScheme returns a random two-color scheme.
 func GenerateColorScheme() ColorScheme {
-	firstColor := generateRandomColor()
+	rng := rand.New(rand.NewSource(time.Now().UnixNano()))
+	return GenerateColorSchemeWithRand(rng)
+}
+
+// GenerateColorSchemeWithRand returns a two-color scheme using rng.
+func GenerateColorSchemeWithRand(rng *rand.Rand) ColorScheme {
+	firstColor := generateRandomColor(rng)
 	secondColor := generateSecondColor(firstColor)
 	return ColorScheme{firstColor, secondColor}
 }
 
+// ColorToRGBA converts Color to an opaque color.RGBA.
 func ColorToRGBA(c Color) color.RGBA {
 	return color.RGBA{uint8(c.R), uint8(c.G), uint8(c.B), 255}
 }

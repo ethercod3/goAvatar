@@ -1,5 +1,6 @@
 # goAvatar
 
+[![CI](https://github.com/ethercod3/goAvatar/actions/workflows/ci.yml/badge.svg)](https://github.com/ethercod3/goAvatar/actions/workflows/ci.yml)
 [![Go](https://img.shields.io/badge/Go-1.23+-00ADD8?logo=go&logoColor=white)](https://go.dev/)
 [![CLI](https://img.shields.io/badge/CLI-goavatar-2F855A)](#cli)
 [![Package](https://img.shields.io/badge/API-avatar.Generate-805AD5)](#go-package)
@@ -13,6 +14,7 @@ Generate simple random pixel avatars from the command line or from Go code.
 - Symmetric pixel-art avatar generation.
 - CLI and importable Go package.
 - Configurable grid dimensions, output size, and output file.
+- Optional seed for reproducible avatars.
 - Local Taskfile commands for run, test, example, and release builds.
 
 ## Quick Start
@@ -38,7 +40,7 @@ task run -- -s 500 -d 5 -o avatar.png
 ## CLI
 
 ```text
-goavatar -s <size> -d <dimensions> [-o <output>]
+goavatar -s <size> -d <dimensions> [-o <output>] [--seed <seed>]
 ```
 
 | Short | Long | Required | Description | Default |
@@ -46,6 +48,7 @@ goavatar -s <size> -d <dimensions> [-o <output>]
 | `-d` | `--dimensions` | Yes | Avatar grid dimensions | - |
 | `-s` | `--size` | Yes | Output image size in pixels | - |
 | `-o` | `--output` | No | Output PNG file path | `avatar.png` |
+| - | `--seed` | No | Reproducible random seed; `0` uses a random seed | `0` |
 
 ## Go Package
 
@@ -64,13 +67,14 @@ func main() {
 	options := avatar.Options{
 		Dimensions: 5,
 		FileSizePx: 500,
+		Seed:       42,
 	}
 
-	if err := options.Validate(); err != nil {
+	img, err := avatar.New(options)
+	if err != nil {
 		log.Fatal(err)
 	}
 
-	img := avatar.Generate(options)
 	file, err := os.Create("avatar.png")
 	if err != nil {
 		log.Fatal(err)
@@ -81,6 +85,16 @@ func main() {
 		log.Fatal(err)
 	}
 }
+```
+
+For direct file output:
+
+```go
+err := avatar.Save("avatar.png", avatar.Options{
+	Dimensions: 5,
+	FileSizePx: 500,
+	Seed:       42,
+})
 ```
 
 ## Development
