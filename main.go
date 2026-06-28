@@ -12,22 +12,22 @@ import (
 func main() {
 	dimensions, size, output := argparser.Parse()
 
-	if dimensions == 0 || size == 0 {
-		log.Println("Dimensions and size must be specified")
-		return
-	}
-
-	img := avatar.Generate(avatar.Options{
+	options := avatar.Options{
 		Dimensions: dimensions,
 		FileSizePx: size,
-	})
-
-	file, err := os.Create(output)
-	if err != nil {
-		panic(err)
+	}
+	if err := options.Validate(); err != nil {
+		log.Fatal(err)
 	}
 
+	img := avatar.Generate(options)
+	file, err := os.Create(output)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer file.Close()
 
-	png.Encode(file, img)
+	if err := png.Encode(file, img); err != nil {
+		log.Fatal(err)
+	}
 }

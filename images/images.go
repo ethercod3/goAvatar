@@ -38,7 +38,7 @@ func Draw(p patterns.Pattern, scheme colors.ColorScheme, imageSizePx int, dimens
 	draw.Draw(img, img.Bounds(), &image.Uniform{background}, image.Point{}, draw.Src)
 
 	foreground := colors.ColorToRGBA(scheme.Second)
-	boxSize := imageSizePx / (dimensions)
+	boxSize := imageSizePx / dimensions
 
 	options := boxOptions{
 		baseXOffset: 0,
