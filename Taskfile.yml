@@ -1,0 +1,22 @@
+version: "3"
+
+tasks:
+  run:
+    desc: Run the CLI. Pass flags after --
+    cmds:
+      - go run ./cmd/goavatar {{.CLI_ARGS}}
+
+  build:
+    desc: Build release binaries into dist/
+    cmds:
+      - nu scripts/build.nu
+
+  example:
+    desc: Generate avatar.png with sample options
+    cmds:
+      - go run ./cmd/goavatar -s 500 -d 5 -o avatar.png
+
+  test:
+    desc: Run Go tests
+    cmds:
+      - go test ./...
